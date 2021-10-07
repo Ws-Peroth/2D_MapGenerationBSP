@@ -382,8 +382,8 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 6dbc64b1bd80adf4e8477d6fc7954bbc, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  isDebugMode: 1
-  tileSprites:
+  _isDebugMode: 1
+  _tileSprites:
   - {fileID: 21300000, guid: b225aa337e8dfc745a1ce2c87f3b03fb, type: 3}
   - {fileID: 3750015234477904518, guid: 62f57254ef9d47a4297186b1b063fd31, type: 3}
   - {fileID: -5638976436552129558, guid: 62f57254ef9d47a4297186b1b063fd31, type: 3}

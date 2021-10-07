@@ -3,18 +3,33 @@ using UnityEngine;
 
 public abstract class TileMapGenerator : MapGeneratorBSP
 {
-    [SerializeField]
-    protected List<Sprite> tileSprites = new List<Sprite>(); // Tilemap Sprites
+    #region 멤버 변수 정의
 
+    [SerializeField]
+    private List<Sprite> _tileSprites = new List<Sprite>();
     [SerializeField]
     private GameObject _tile;   // Dummy Tile Object
 
-    protected GameObject[,] tileMapObjects;
-
-    private Vector3 _worldStart;
-
+    private GameObject[,] _tileMapObjects;
+    private static Vector3 _worldStart;
+    private float _tileSize;
     private int _tileKind;
-    private float _tileSize; // 타일 크기
+
+    #endregion
+
+    #region 프로퍼티 정의
+    protected List<Sprite> TileSprites
+    {
+        get => _tileSprites;
+        set => _tileSprites = value;
+    }
+    protected GameObject[,] TileMapObjects
+    {
+        get => _tileMapObjects;
+        set => _tileMapObjects = value;
+    }
+
+    #endregion
 
     protected virtual void Start()
     {
@@ -26,7 +41,11 @@ public abstract class TileMapGenerator : MapGeneratorBSP
     {
         base.InitializeMapData(X, Y);
 
-        if (tileMapObjects == null)
+        if (TileMapObjects == null)
+        {
+            InitializeTileMapObjects();
+        }
+        else if (TileMapObjects.GetLength(0) != MapY && TileMapObjects.GetLength(1) != MapX)
         {
             InitializeTileMapObjects();
         }
@@ -38,12 +57,12 @@ public abstract class TileMapGenerator : MapGeneratorBSP
         _tileSize = _tile.GetComponent<SpriteRenderer>().sprite.bounds.size.x;
 
         // 타일맵 배열 할당
-        tileMapObjects = new GameObject[mapY, mapX];
+        TileMapObjects = new GameObject[MapY, MapX];
 
         // 타일맵 배열 초기화
-        for (var y = 0; y < mapY; y++)
+        for (var y = 0; y < MapY; y++)
         {
-            for (var x = 0; x < mapX; x++)
+            for (var x = 0; x < MapX; x++)
             {
                 // Dummy Tile 생성
                 var newTile =
@@ -53,7 +72,7 @@ public abstract class TileMapGenerator : MapGeneratorBSP
                                 transform
                                 );
 
-                tileMapObjects[y, x] = newTile;
+                TileMapObjects[y, x] = newTile;
             }
         }
     }
@@ -69,9 +88,9 @@ public abstract class TileMapGenerator : MapGeneratorBSP
 
     private void GenerateTileMap()
     {
-        for(var y = 0; y < mapY; y++)
+        for(var y = 0; y < MapY; y++)
         {
-            for(var x = 0; x < mapX; x++)
+            for(var x = 0; x < MapX; x++)
             {
                 // 해당 위치의 타일맵에 스프라이트 적용
                 ApplyTileMapSprite(x, y);
@@ -82,11 +101,11 @@ public abstract class TileMapGenerator : MapGeneratorBSP
     private GameObject ApplyTileMapSprite(int x, int y)
     {
         // map에서 생성할 타일과 타일의 종류를 가져옴
-        _tileKind = map[y, x];
-        var targetTile = tileMapObjects[y, x];
+        _tileKind = Map[y, x];
+        var targetTile = TileMapObjects[y, x];
 
         // 타일 종류에 맞는 Sprite 부여
-        targetTile.GetComponent<SpriteRenderer>().sprite = tileSprites[_tileKind];
+        targetTile.GetComponent<SpriteRenderer>().sprite = TileSprites[_tileKind];
         return targetTile;
     }
 }
