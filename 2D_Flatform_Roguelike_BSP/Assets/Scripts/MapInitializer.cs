@@ -7,36 +7,12 @@ public struct MapInformation
     
 public class MapInitializer : MonoBehaviour
 {
-    #region 멤버 변수 정의
-
-    [SerializeField]
-    private bool _isDebugMode;
-    private int[,] _map;
-    private int _mapX;
-    private int _mapY;
-    #endregion
-
     #region 프로퍼티 정의
-    protected bool IsDebugMode
-    {
-        get => _isDebugMode;
-        set => _isDebugMode = value;
-    }
-    protected int[,] Map
-    {
-        get => _map;
-        set => _map = value;
-    }
-    protected int MapX
-    {
-        get => _mapX;
-        set => _mapX = value;
-    }
-    protected int MapY
-    {
-        get => _mapY;
-        set => _mapY = value;
-    }
+    [field : SerializeField] 
+    protected bool IsDebugMode { get; set; }
+    protected int[,] Map { get; set; }
+    protected int MapX { get; set; }
+    protected int MapY { get; set; }
     #endregion
 
     protected virtual void InitializeMapData(int X = MapInformation.X, int Y = MapInformation.Y)

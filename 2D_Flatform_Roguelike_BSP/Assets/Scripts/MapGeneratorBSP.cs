@@ -5,13 +5,12 @@ using UnityEngine;
 public class MapGeneratorBSP : MapInitializer
 {
     #region 멤버 변수 정의
-
     private const int BorderSizeX = 2;
     private const int BorderSizeY = 2;
     #endregion
 
     #region 프로퍼티 정의
-    private int RoomDivideRatio => Random.Range(0, 3) + 4;
+    private int RoomDivideRatio => Random.Range(4, 7);
     private int GetTileNumber => IsDebugMode ? (int)Tile.FilledTile : (int)Tile.BlankedTile;
 
     #endregion

@@ -1,16 +1,12 @@
 ﻿using System.Collections.Generic;
 using UnityEngine;
 
-public abstract class TileMapGenerator : MapGeneratorBSP
+public abstract class TileMapGenerator : MapGeneratorFixedBSP
 {
     #region 멤버 변수 정의
 
     [SerializeField]
-    private List<Sprite> _tileSprites = new List<Sprite>();
-    [SerializeField]
     private GameObject _tile;   // Dummy Tile Object
-
-    private GameObject[,] _tileMapObjects;
     private static Vector3 _worldStart;
     private float _tileSize;
     private int _tileKind;
@@ -18,16 +14,11 @@ public abstract class TileMapGenerator : MapGeneratorBSP
     #endregion
 
     #region 프로퍼티 정의
-    protected List<Sprite> TileSprites
-    {
-        get => _tileSprites;
-        set => _tileSprites = value;
-    }
-    protected GameObject[,] TileMapObjects
-    {
-        get => _tileMapObjects;
-        set => _tileMapObjects = value;
-    }
+    [field: SerializeField]
+    protected List<Sprite> TileSprites { get; set; }
+
+    [field : SerializeField]
+    protected GameObject[,] TileMapObjects { get; set; }
 
     #endregion
 
